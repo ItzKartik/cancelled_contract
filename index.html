@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1" /> -->
+    <link rel="icon" href="logo.png" />
+    <title>Dragon Finance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.5.3-rc.0/web3.min.js"
+        integrity="sha512-+18yqikfKtcOi8TjTjfcOdQsu8XaBg0JIJlZkhcsegIFgCGbQzAoTR1AeutQBNraEf8qCrSpua2EMugVWO+utA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="main.js"></script>
+    <script src="eth_pool.js"></script>
+    <script src="dragon_lp_pool.js"></script>
+    <script src="dragon_pool.js"></script>
+    <link href="css/app.86e9dbd6.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<style>
+    body{
+        background: url('bg.jpg');
+    }
+</style>
+<body><noscript><strong>We're sorry but DRAGON doesn't work properly without JavaScript enabled. Please enable it to
+            continue.</strong></noscript>
+    <div id="app2" data-v-app="">
+        <nav data-v-22506aa9="">
+            <div class="navbar-left" data-v-22506aa9="">
+                <img src="logo.png" style="width: 100px; height: 100px;" alt="">
+                <a href="/"
+                    class="router-link-active router-link-exact-active brand-name" data-v-22506aa9=""
+                    aria-current="page">DRAGON <span data-v-22506aa9="">Finance</span></a>
+                <a href="/" class="router-link-active router-link-exact-active tab selected" data-v-22506aa9=""
+                    aria-current="page">Farm</a>
+                <!-- <a href="/info" class="tab" data-v-22506aa9="">Info</a> -->
+                <a class="tab" href="https://bridge.arbitrum.io/" target="_blank" data-v-22506aa9="">Bridge</a>
+            </div>
+            <button id="connect_btn" data-v-f35008dc="" data-v-22506aa9="">Connect <wbr>Wallet</button>
+        </nav>
+
+        <!---->
+        <style>
+            .arrow-svg {
+                transition: all .3s;
+            }
+
+            .rotate {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                fill: #e6e8ec;
+                cursor: pointer;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                color: inherit;
+                transform: rotate(-180deg);
+                transition: all .3s;
+            }
+
+            #app2 {
+                padding: auto !important;
+            }
+
+            .main {
+                padding: 0px 10px 10px 100px !important
+            }
+
+            .farm-frame {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                margin: 0;
+                font: inherit;
+                vertical-align: baseline;
+                color: inherit;
+                border-radius: 16px;
+                border: 2px solid #23262f;
+                background-color: #141416;
+                padding: 24px;
+                width: 600px;
+                margin-bottom: 32px;
+                font-size: 20px;
+                transition: all .2s ease-in-out;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .dropdown-row {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                line-height: 2rem !important;
+                font: inherit;
+                vertical-align: baseline;
+                color: inherit;
+            }
+
+            nav {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                margin: 0;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                color: inherit;
+                padding: 16px 8px;
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                box-sizing: border-box;
+            }
+
+            .main {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                color: inherit;
+                flex: 1;
+            }
+
+            .arrow {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                margin: 0;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                width: 20px;
+                height: 20px;
+                fill: #e6e8ec;
+                padding: 8px;
+                border-radius: 4px;
+                color: #e6e8ec;
+                cursor: pointer;
+                margin-left: 8px;
+            }
+
+            .farm-name {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                color: inherit;
+                font-size: 32px;
+                font-weight: 500;
+                margin-bottom: 8px;
+            }
+
+            .warn {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                color: inherit;
+                background-color: #ef466f;
+                border-radius: 8px;
+                padding: 8px;
+                margin: 8px;
+            }
+
+            .stats-row {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                color: inherit;
+                margin-bottom: 8px;
+            }
+
+            .farm-stats {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                margin: 0;
+                font: inherit;
+                vertical-align: baseline;
+                color: inherit;
+                border-radius: 16px;
+                border: 2px solid #23262f;
+                background-color: #141416;
+                padding: 32px;
+                width: 686px;
+                margin-bottom: 32px;
+                transition: all .2s ease-in-out;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                font-size: 32px;
+            }
+
+            .collapsed {
+                /* display: none; */
+            }
+
+            .dropdown {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                color: inherit;
+                margin-top: 16px;
+                overflow: hidden;
+                transition: max-height .4s ease-in-out;
+                height: auto;
+                max-height: 120px;
+            }
+
+            .actions {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                color: inherit;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .farm-apr {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font: inherit;
+                vertical-align: baseline;
+                color: inherit;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 8px;
+            }
+
+            .connect {
+                -webkit-font-smoothing: antialiased;
+                text-align: center;
+                margin: 0;
+                font: inherit;
+                vertical-align: baseline;
+                color: inherit;
+                text-decoration: none;
+                border: 2px solid #777e90;
+                background-color: #141416;
+                width: 300px;
+                padding: 14px 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: all .2s;
+                font-size: 16px;
+                margin-top: 12px;
+            }
+        </style>
+        <style>
+            a {
+                color: white;
+                text-decoration: none;
+            }
+
+            a:focus,
+            a:hover {
+                color: white;
+                text-decoration: none;
+            }
+
+            input {
+                width: 100%;
+                padding: 5px;
+                border-radius: 5px;
+                border: 0px;
+                outline: 0px;
+            }
+
+            .btn,
+            .btn-primary {
+                width: 100% !important;
+            }
+
+            .con {
+                margin: 10px;
+            }
+        </style>
+        <div class="main" style="margin-top: 50px; justify-content: center;">
+            <div class="farms" data-v-3f639aed="">
+                <div id="1" class="farm-frame" data-v-5d971eae="" data-v-3f639aed="">
+                    <div class="farm-name" data-v-5d971eae="">ETH Pool</div>
+                    <div class="farm-apr" data-v-5d971eae="">
+                        <div data-v-5d971eae="">APR : 169.87%</div>
+                    </div>
+
+                    <div class="actions" data-v-5d971eae="">
+                        <div class="text-left mr-auto dropdown collapsed" data-v-5d971eae="">
+                            <div class="dropdown-row" style="text-align: left !important;" data-v-5d971eae=""> Your
+                                Stake : <span id="staked_amt">0</span> ETH</div>
+                            <div class="dropdown-row" style="text-align: left !important;" data-v-5d971eae=""> Your
+                                Unclaimed Rewards : <span id="unclaimed_reward">0</span> DRAGON</div>
+
+                            <div class="dropdown-row" style="text-align: left !important;" data-v-5d971eae=""> Total
+                                Staked : <span id="total_staked">0</span> ETH</div>
+                        </div>
+                        <br>
+                        <div class="stake con col-md-10">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button onclick="eth_pool('stake');" type="button" style="margin: 2px;"
+                                        class="btn btn-primary">
+                                        Stake
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button onclick="eth_pool('withdraw');" type="button" style="margin: 2px;"
+                                        class="btn btn-primary">
+                                        Withdraw
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button onclick="eth_pool('claim');" type="button" style="margin: 2px;"
+                                        class="btn btn-primary">
+                                        Claim <span class="dragon_val"></span> DRAGON
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button onclick="eth_pool('claim_withdraw');" type="button" style="margin: 2px;"
+                                        class="btn btn-primary">
+                                        Claim & withdraw all
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="2" class="farm-frame" data-v-5d971eae="" data-v-3f639aed="">
+                    <div class="farm-name" data-v-5d971eae="">ETH-DRAGON LP Pool</div>
+                    <div class="farm-apr" data-v-5d971eae="">
+                        <div data-v-5d971eae="">APR : 169.87%</div>
+                    </div>
+
+                    <div class="actions" data-v-5d971eae="">
+                        <a class="connect pool" target="_blank" href="https://app.sushi.com/add/ETH" data-v-5d971eae="">Deposit DRAGON-ETH LP on SUSHI</a>
+                        <div class="text-left mr-auto dropdown collapsed" data-v-5d971eae="">
+                            <div class="dropdown-row" style="text-align: left !important;" data-v-5d971eae=""> Your
+                                Stake : <span id="staked_amt_2">0</span> ETH</div>
+                            <div class="dropdown-row" style="text-align: left !important;" data-v-5d971eae=""> Your
+                                Unclaimed Rewards : <span id="unclaimed_reward_2">0</span> DRAGON</div>
+
+                            <div class="dropdown-row" style="text-align: left !important;" data-v-5d971eae=""> Total
+                                Staked : <span id="total_staked_2">0</span> ETH</div>
+                        </div>
+                        <br>
+                        <div class="stake con col-md-10">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button onclick="dragon_lp_pool('stake');" type="button" style="margin: 2px;"
+                                        class="btn btn-primary">
+                                        Stake
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button onclick="dragon_lp_pool('withdraw');" type="button" style="margin: 2px;"
+                                        class="btn btn-primary">
+                                        Withdraw
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button onclick="dragon_lp_pool('claim');" type="button" style="margin: 2px;"
+                                        class="btn btn-primary">
+                                        Claim <span class="dragon_val_2"></span> DRAGON
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button onclick="dragon_lp_pool('claim_withdraw');" type="button" style="margin: 2px;"
+                                        class="btn btn-primary">
+                                        Claim & withdraw all
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="3" class="farm-frame" data-v-5d971eae="" data-v-3f639aed="">
+                    <div class="farm-name" data-v-5d971eae="">DRAGON Pool</div>
+                    <div class="farm-apr" data-v-5d971eae="">
+                        <div data-v-5d971eae="">APR : 169.87%</div>
+                    </div>
+
+                    <div class="actions" data-v-5d971eae="">
+                        <div class="text-left mr-auto dropdown collapsed" data-v-5d971eae="">
+                            <div class="dropdown-row" style="text-align: left !important;" data-v-5d971eae=""> Your
+                                Stake : <span id="staked_amt_3">0</span> ETH</div>
+                            <div class="dropdown-row" style="text-align: left !important;" data-v-5d971eae=""> Your
+                                Unclaimed Rewards : <span id="unclaimed_reward_3">0</span> DRAGON</div>
+
+                            <div class="dropdown-row" style="text-align: left !important;" data-v-5d971eae=""> Total
+                                Staked : <span id="total_staked_3">0</span> ETH</div>
+                        </div>
+                        <br>
+                        <div class="stake con col-md-10">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button onclick="dragon_pool('stake');" type="button" style="margin: 2px;"
+                                        class="btn btn-primary">
+                                        Stake
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button onclick="dragon_pool('withdraw');" type="button" style="margin: 2px;"
+                                        class="btn btn-primary">
+                                        Withdraw
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button onclick="dragon_pool('claim');" type="button" style="margin: 2px;"
+                                        class="btn btn-primary">
+                                        Claim <span class="dragon_val_3"></span> DRAGON
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button onclick="dragon_pool('claim_withdraw');" type="button" style="margin: 2px;"
+                                        class="btn btn-primary">
+                                        Claim & withdraw all
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="farm-stats" data-v-418953e6="" data-v-3f639aed="">
+                    <div class="stats-row" data-v-418953e6="">ETH - $799,082,506</div>
+                    <div class="stats-row" data-v-418953e6="">DRAGON Price $3.593</div>
+                    <div class="stats-row" data-v-418953e6=""> Circulating Supply 1,328,002</div>
+                    <div class="stats-row" data-v-418953e6="">Market Cap $4,772,037</div>
+                </div>
+            </div>
+        </div>
+        <!-- <div data-v-1bb520a3=""><a href="https://twitter.com/" target="_blank" data-v-1bb520a3=""><img
+                    src="/img/twitter.bf36f3f6.svg" alt="" data-v-1bb520a3=""></a><a
+                href="https://discord.gg/XAp6bBJR4y" target="_blank" data-v-1bb520a3=""><img
+                    src="/img/discord.9a823ca6.svg" alt="" data-v-1bb520a3=""></a></div> -->
+        <!---->
+    </div>
+</body>
+
+</html>
